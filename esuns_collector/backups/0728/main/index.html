@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!-- File: index.html -->
+<html lang="zh-Hant-TW">
+
+<head>
+  <meta http-equiv="refresh" content="300">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Esuns Dashboard | </title>
+
+  <!-- Bootstrap -->
+  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- bootstrap-daterangepicker -->
+  <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+  <!-- Custom Theme Style -->
+  <link href="../build/css/custom.css" rel="stylesheet">
+  <!-- jQuery CDN -->
+  <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../favicon.ico">
+</head>
+
+<body class="nav-sm" onload="startTime">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+          <div class="navbar nav_title" style="border: 0;">
+            <a href="index.html" class="site_title"><i class="fa fa-tachometer"></i> <span>Esuns Dashboard</span></a>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <h3>General</h3>
+              <ul class="nav side-menu">
+                <li><a href="index.html"><i class="fa fa-home"></i> Home </a></li>
+                <li><a href="AP_tables.html"><i class="fa fa-table"></i> Tables </a></li>
+                </li>
+              </ul>
+            </div>
+            <!--
+            <div class="menu_section">
+              <h3>Testing</h3>
+              <ul class="nav side-menu">
+                <li><a><i class="fa fa-shopping-bag"></i> Crown Plaza <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="crown_plaza/power_chart.html"> Power Charts</a></li>
+                    <li><a href="crown_plaza/table1.html">Data Table</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>-->
+          </div>
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+          </div>
+          <!-- /menu footer buttons -->
+        </div>
+      </div>
+
+      <!-- top navigation -->
+      <div class="top_nav">
+        <div class="nav_menu">
+          <nav>
+            <div class="nav toggle">
+              <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li class="">
+                <a id="tile_clock">loading</a>
+              </li>
+              <li class="">
+                <a><i class="fa fa-clock-o" aria-hidden="true"></i></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <!-- /top navigation -->
+
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
+          <!-- top 4 tiles -->
+          <div class="row top_tiles">
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12" title="Repair orders">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-wrench"></i></div>
+                <div class="count" id="tile_Repair_Orders">0</div>
+                <h3>Repair Orders</h3>
+              </div>
+            </div>
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12" title="Restart counts over 4">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="count" id="tile_Restart_Warning">0</div>
+                <h3>Restart Warning</h3>
+              </div>
+            </div>
+            <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12" title="CPU over 50% counts over 2">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-tasks"></i></div>
+                <div class="count" id="tile_CPU_Warning">0</div>
+                <h3>CPU Warning</h3>
+              </div>
+            </div>
+          </div>
+          <!-- /top 4 tiles -->
+          <!-- 2nd row -->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Server Room Status <small></small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="http://192.168.1.163:1880/ui/#/0">Go There</a>
+                        </li>
+                        <!--<li><a>setting 2</a>
+                        </li>-->
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                          <!--iframe HERE--><iframe src="http://192.168.1.163:1880/ui/#/0" width="100%" height="345px" frameborder="0" scrolling="no"></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /2nd row -->
+          <!-- 3rd row -->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Repair Order History <small id=bar_Settings_text>last 7 days</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a id=bar_Settings1>last 7 days</a>
+                        </li>
+                        <li><a id=bar_Settings2>last 30 days</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div id="repair_order_bar" style="height:350px; width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /3rd row -->
+          <!-- 4th row -->
+          <div class="row" style="text-align: center;">
+            <!-- 1 Top Processes -->
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Top Processes<small>#flag = 1</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a id=donut_1_top_5>TOP 5</a>
+                        </li>
+                        <li><a id=donut_1_top_10>TOP 10</a>
+                        </li>
+                        <li><a id=donut_1_data_table>#Data Table</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                  <div class="x_content" style="margin-top:15px;">
+                    <div id="echart_donut_1" style="height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 2 Restart Count -->
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Restart Count<small></small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a>setting 1</a>
+                        </li>
+                        <li><a>setting 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                  <div class="x_content" style="margin-top:15px;">
+                    <div id="echart_donut_2" style="height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 3 CPU Rate -->
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>CPU Rate<small></small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a>setting 1</a>
+                        </li>
+                        <li><a>setting 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                  <div class="x_content" style="margin-top:15px;">
+                    <div id="echart_donut_3" style="height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 4 Running Hours -->
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Running Hours<small></small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a>setting 1</a>
+                        </li>
+                        <li><a>setting 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                  <div class="x_content" style="margin-top:15px;">
+                    <!-- CPU使用率 -->
+                    <div id="echart_donut_4" style="height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- / -->
+          </div>
+          <!-- /4th row -->
+          <!-- 5th row -->
+          <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Top 5 重開機<small-spc id=yesterday_date>date</small-spc></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a>setting 1</a>
+                        </li>
+                        <li><a>setting 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="content">
+                  <ul class="list-unstyled top_profiles scroll-view" style="overflow: hidden;">
+                    <p id=profile_restart_top5>loading profile...</p>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Top 5 CPU使用率<small-spc id=yesterday_date2>date</small-spc></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a>setting 1</a>
+                        </li>
+                        <li><a>setting 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="content">
+                  <ul class="list-unstyled top_profiles scroll-view" style="overflow: hidden;">
+                    <p id=profile_CPU_top5>loading profile...</p>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 5th row -->
+          <!-- 6th row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!--框架控制-->
+              <iframe src="http://mis.esuns.com.tw:7000/PCFix_1.aspx" width="100%" height="700px" frameborder="0" scrolling="auto"></iframe>
+            </div>
+          </div>
+          <!-- /6th row -->
+        </div>
+      </div>
+      <!-- /page content -->
+
+      <!-- footer content -->
+      <footer>
+        <div class="pull-right">
+          Esuns Dashboard by <a href="http://www.esuns-tech.com.tw/">登陽智慧科技</a>
+        </div>
+        <div class="clearfix"></div>
+      </footer>
+      <!-- /footer content -->
+    </div>
+  </div>
+
+
+  <!-- Bootstrap -->
+  <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- FastClick -->
+  <script src="../vendors/fastclick/lib/fastclick.js"></script>
+  <!-- NProgress -->
+  <script src="../vendors/nprogress/nprogress.js"></script>
+
+  <!-- ECharts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.1/echarts.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.1/extension/bmap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.1/extension/dataTool.min.js"></script>
+
+  <!-- Chart.js -->
+  <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- jQuery Sparklines -->
+  <script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+
+  <!-- Flot -->
+  <script src="../vendors/Flot/jquery.flot.js"></script>
+  <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+  <script src="../vendors/Flot/jquery.flot.time.js"></script>
+  <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+  <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+  <!-- Flot plugins -->
+  <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+  <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+  <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+
+  <!-- DateJS -->
+  <script src="../vendors/DateJS/build/date.js"></script>
+  <!-- bootstrap-daterangepicker -->
+  <script src="../vendors/moment/min/moment.min.js"></script>
+  <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+  <!-- Custom Theme Scripts -->
+  <script src="../build/js/custom.js"></script>
+  <script src="../build/js/index_custom.js"></script>
+</body>
+
+</html>

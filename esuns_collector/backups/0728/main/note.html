@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ECharts</title>
+  <!-- 引入 echarts.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.6.2/echarts.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+  <div id="main" style="width: 800px;height:600px;"></div>
+  <script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    $.ajax({
+      url: "http://localhost/esuns_collector/main/proxy.php?route=/Reapir_Case/7",
+      type: "GET",
+      dataType: "json",
+      success: function(JSON) {
+        console.log('/Reapir_Case/7 JSON load SUCCESS !!!XXXXXXXXXXXXXXXXX');
+        console.log('/Reapir_Case/7: ', JSON);
+
+        var repair_order_bar_date = [];
+        var repair_order_bar_NewCase = [];
+        var repair_order_bar_QueueCase = [];
+        var repair_order_bar_CloseCase = [];
+
+        for (i = 0; i < JSON.data.length; i++) {
+          var NewCase = JSON.data[i].NewCase;
+          var QueueCase = JSON.data[i].QueueCase - JSON.data[i].NewCase;
+          var CloseCase = JSON.data[i].CloseCase;
+          if (QueueCase < 0) {
+            QueueCase = 0
+          };
+          repair_order_bar_date.push([JSON.data[i].RC_Date]);
+          repair_order_bar_NewCase.push(NewCase);
+          repair_order_bar_QueueCase.push(QueueCase);
+          repair_order_bar_CloseCase.push(CloseCase);
+        }
+
+        repair_order_bar_date = repair_order_bar_date.reverse();
+        repair_order_bar_NewCase = repair_order_bar_NewCase.reverse();
+        repair_order_bar_QueueCase = repair_order_bar_QueueCase.reverse();
+        repair_order_bar_CloseCase = repair_order_bar_CloseCase.reverse();
+
+        // 指定图表的配置项和数据
+        var option = {
+          tooltip: {
+            show: true,
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          legend: {
+            data: ['NewCase', 'QueueCase', 'CloseCase']
+          },
+          xAxis: {
+            type: 'category',
+            data: repair_order_bar_date
+          },
+          yAxis: {},
+          series: [{
+            name: 'NewCase',
+            type: 'bar',
+            stack: 'QueneWork',
+            data: repair_order_bar_NewCase
+          },{
+            name: 'QueueCase',
+            type: 'bar',
+            stack: 'QueneWork',
+            data: repair_order_bar_QueueCase
+          },{
+            name: 'CloseCase',
+            type: 'bar',
+            data: repair_order_bar_CloseCase
+          }]
+        };
+
+        myChart.setOption(option);
+      },
+      error: function() {
+        console.log('LOAD ERROR!!');
+      }
+    })
+
+  </script>
+</body>
+
+</html>

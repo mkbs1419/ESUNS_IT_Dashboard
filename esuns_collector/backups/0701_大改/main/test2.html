@@ -1,0 +1,31 @@
+///////////////甜甜圈圖function/////////////////////////
+function echart_donut_1_data {}; CPU使用率
+
+function echart_donut_2_data {}; 重開機次數
+
+function echart_donut_3_data {}; RAM占用比率
+
+function echart_donut_4_data {}; 設備開機時數
+
+//////////////////////////////////////////////////////
+
+
+classA = 0  # 開機次數大於等於 8
+classB = 0  # 開機次數 5 ~ 7
+classC = 0  # 開機次數 2 ~ 4
+classD = 0  # 開機次數 1
+
+
+$.ajax({
+  url: "http://localhost/esuns_collector/main/proxy.php?route=/Dought2_data",
+  type: "GET",
+  dataType: "json",
+  success: function(JSON) {
+    console.log('/Dought2_data JSON load SUCCESS!');
+    console.log('/Dought2_data: ', JSON);
+
+    $("#data_range_get").html('撈資料 OK');
+  },
+  error: function() {
+    console.log('/Dought2_data JSON load failed...');
+  }

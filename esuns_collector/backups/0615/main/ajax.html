@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- File: ajax.html -->
+<html lang="zh-Hant-TW">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>DataTables | Esuns</title>
+
+    <!-- jQuery CDN-->
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+  </head>
+
+<body>
+see Console!
+
+<script type="text/javascript">
+$.ajax({
+    url: 'http://localhost/esuns_collector/main/proxy.php?route=/AP_record/5',
+    dataType: 'json',
+    type: 'get',
+    success: function(data) {
+        console.log(data);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log('failed');
+    }
+});
+
+</script>
+</body>
