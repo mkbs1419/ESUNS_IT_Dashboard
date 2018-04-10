@@ -4,4 +4,4 @@
 
 ![Dashboard][screenshot]
 
-[screenshot]:https://raw.githubusercontent.com/mkbs1419/Esuns_IT_Dashboard/master/pic/2018-03-06_113236.png "screenshot"
+[screenshot]:https://i.imgur.com/BALnxKd.png "screenshot"
